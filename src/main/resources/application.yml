@@ -1,0 +1,48 @@
+netty:
+  port: 20090
+  url: 192.168.10.250
+    
+logging:
+  # 配置级别
+  level:
+    #分包配置级别，即不同的目录下可以使用不同的级别
+    cn.ybt.netty: info
+  config: classpath:logback-spring.xml
+  path: e:/logs
+
+redis:
+  my:
+    database: 0
+    host: 192.168.10.145
+    port: 6379
+    timeout: 2000
+    password: test123
+  login:
+    database: 1
+    host: 192.168.10.145
+    port: 6379
+    timeout: 2000
+    password: test123
+    prefix: "service:jxs:userToken:uid:"
+    
+  cache:
+    expireSeconds: 300
+    key:
+      prefix: "netty:jx:uid:"
+      
+spring:
+  kafka:
+    # 指定kafka 代理地址，可以多个
+    bootstrap-servers: 192.168.9.186:9091,192.168.9.186:9092,192.168.9.186:9093
+    producer:
+      retries: 0
+      # 每次批量发送消息的数量
+      batch-size: 16384
+      # 缓存容量
+      buffer-memory: 33554432
+      # 指定消息key和消息体的编解码方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    listener:
+      # 指定listener 容器中的线程数，用于提高并发量
+      concurrency: 6
